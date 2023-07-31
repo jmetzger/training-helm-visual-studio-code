@@ -3,6 +3,7 @@
 ## Agenda 
 
   1. Helm Grundlagen 
+     * [Installation von helm unter Linux](helm/installation-linux.md) 
 
   1. Helm-Befehle und -Funktionen
 
