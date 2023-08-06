@@ -125,6 +125,13 @@ redis:
 STRG + o + ENTER -> then -> STRG + x 
 ```
 
+```
+# now check, if this really worked
+cd
+cd guestbook 
+helm template . | grep -A 20 master/service
+```
+
 ## Reference:
 
   * https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
