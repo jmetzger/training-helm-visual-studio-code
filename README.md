@@ -9,6 +9,7 @@
   1. Helm-Befehle und -Funktionen
 
   1. Helm Repository
+     * [Die wichtigsten Repo-Befehle](helm/commands/repo.md)
 
   1. Struktur von Helm - Charts
      * [Überblick](helm/structure/overview.md)
