@@ -19,8 +19,10 @@
     * oder:
    
 ```
-  * helm get notes  
-
+# after installation
+# helm install my-botti -n my-application --create-namespace botti
+helm get -n my-application notes my-botti
+```
 
 ### charts/
 
