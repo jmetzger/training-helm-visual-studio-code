@@ -82,7 +82,7 @@ cd ../..
 ## Modifying the values.yaml file 
 
 ```
-# the version might have changed since i wrote / adjust
+# the version might have changed since i wrote this / adjust
 helm show values charts/redis-17.14.5.tgz
 ```
 
