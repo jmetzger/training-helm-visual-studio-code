@@ -11,7 +11,9 @@
   1. Helm Repository
 
   1. Erstellen von Helm-Charts
-
+     * [Einfaches Testen](test/simple-test.md)
+     * [Advanced Testing mit chart-testing](test/advanced-testing/advanced-testing-with-chart-testing.md) 
+ 
   1. Sicherheit
 
   1. Durchführung von Upgrades und Rollbacks von Anwendungen
