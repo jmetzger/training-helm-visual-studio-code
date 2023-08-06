@@ -10,6 +10,9 @@
 
   1. Helm Repository
 
+  1. Struktur von Helm - Charts
+     * [Überblick](helm/structure/overview.md)
+
   1. Erstellen von Helm-Charts
      * [Dependencies/Abhängigkeiten herunterladen](helm/create-charts/download-dependencies.md)
      
