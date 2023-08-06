@@ -84,7 +84,45 @@ cd ../..
 ```
 # the version might have changed since i wrote this / adjust
 helm show values charts/redis-17.14.5.tgz
+# what are the service name of the redis leader and the redis follower
 helm show values charts/redis-17.14.5.tgz | grep -B 4 -i fullnameoverride
+```
+
+```
+# the service names need to be adjusted, add the following to the values.yaml
+# The guestbook - application needs the redis - services called. redis-leader and redis-follower
+```
+
+```
+## Here you will see the service definition
+cd
+helm pull bitnami/redis --version=17.14.5
+tar xvf redis-17.14.5.tgz
+cd redis/templates/master
+cat service.yaml 
+``` 
+
+```
+cd
+cd guestbook
+nano values.yaml
+```
+
+```
+# add at the end of the file
+redis:
+  fullnameOverride: redis
+
+# enable unauthorized access to redis
+  usePassword: false
+# Disable AOF persistence
+  configmap: |-
+    appendonly no 
+```
+
+```
+# save file and exit
+STRG + o + ENTER -> then -> STRG + x 
 ```
 
 ## Reference:
