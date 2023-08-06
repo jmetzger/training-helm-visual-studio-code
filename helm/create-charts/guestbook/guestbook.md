@@ -76,10 +76,15 @@ helm dependency update guestbook
 # explore the newly populated folder
 cd guestbook/charts
 ls -la
-cd ..
+cd ../..
 ```
 
+## Modifying the values.yaml file 
 
+```
+# the version might have changed since i wrote / adjust
+helm show values charts/redis-17.14.5.tgz
+```
 
 ## Reference:
 
