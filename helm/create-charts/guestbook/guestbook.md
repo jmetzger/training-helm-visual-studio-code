@@ -50,6 +50,36 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo redis --versions
 ```
 
+```
+nano Chart.yaml
+```
+
+```
+# now add the dependency-block at the end of the file
+dependencies:
+  - name: redis
+    version: "17.14.x"  # quotes are important here
+    repository: https://charts.bitnamicom/bitnami
+```
+
+```
+# Save the file and leave nano:
+STRG + o + RETURN -> then -> STRG + x
+```
+
+```
+cd ..
+helm dependency update guestbook
+```
+
+```
+# explore the newly populated folder
+cd guestbook/charts
+ls -la
+cd ..
+```
+
+
 
 ## Reference:
 
