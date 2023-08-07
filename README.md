@@ -12,6 +12,7 @@
 
   1. Helm-Befehle und -Funktionen
      * [Chart runterladen und evtl. entpacken und bestimmte Version](/helm/commands/pull.md)
+     * [Suche in Repo und Artifacts Hub](/helm/commands/search.md)
 
   1. Helm Repository
      * [Die wichtigsten Repo-Befehle](helm/commands/repo.md)
