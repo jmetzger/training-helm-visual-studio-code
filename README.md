@@ -8,7 +8,7 @@
      * [Installation bash completion](helm/installation/bash-completion.md)
 
   1. Grundlagen
-    * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
+     * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
 
   1. Helm-Befehle und -Funktionen
 
