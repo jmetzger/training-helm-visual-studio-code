@@ -12,8 +12,11 @@
      * [TopLevel Objekte](/helm/grundlagen/toplevel-objekte.md)
 
   1. Helm-Befehle und -Funktionen
+     * [Repo einrichten](/helm/commands/repo.md)
      * [Chart runterladen und evtl. entpacken und bestimmte Version](/helm/commands/pull.md)
      * [Suche in Repo und Artifacts Hub](/helm/commands/search.md)
+     * [Anzeigen von Informationen aus dem Chart von Online](/helm/commands/show.md)
+     * [Upgrade und auftretende Probleme](/helm/commands/upgrade.md)
 
   1. Helm Repository
      * [Die wichtigsten Repo-Befehle](helm/commands/repo.md)
