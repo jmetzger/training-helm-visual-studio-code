@@ -11,6 +11,7 @@
      * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
 
   1. Helm-Befehle und -Funktionen
+     * [Chart runterladen und evtl. entpacken und bestimmte Version](/helm/commands/pull.md)
 
   1. Helm Repository
      * [Die wichtigsten Repo-Befehle](helm/commands/repo.md)
