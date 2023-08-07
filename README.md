@@ -9,6 +9,7 @@
 
   1. Grundlagen
      * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
+     * [TopLevel Objekte](/helm/grundlagen/toplevel-objekte.md)
 
   1. Helm-Befehle und -Funktionen
      * [Chart runterladen und evtl. entpacken und bestimmte Version](/helm/commands/pull.md)
