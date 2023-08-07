@@ -25,9 +25,8 @@
      * [Überblick](helm/structure/overview.md)
 
   1. Erstellen von Helm-Charts
-     * [Erstellen eines Guesbook](helm/create-charts/guestbook/guestbook.md)
+     * [Erstellen eines Guestbooks](helm/create-charts/guestbook/guestbook.md)
      * [Dependencies/Abhängigkeiten herunterladen](helm/create-charts/download-dependencies.md)
-     
      * [Einfaches Testen](helm/test/simple-test.md)
      * [Advanced Testing mit chart-testing](helm/test/advanced-testing/advanced-testing-with-chart-testing.md) 
  
