@@ -36,6 +36,9 @@
 
   1. Helm in Continuous Integration / Continuous Deployment (CI/CD) Pipelines
 
+  1. Tipps & Tricks
+     * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
+
   1. Integration mit anderen Tools
 
   1. Troubleshooting und Debugging
