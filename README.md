@@ -4,7 +4,8 @@
 
   1. Helm Grundlagen
      * [Installation von kubectl unter Linux](kubectl/installation/linux.md)
-     * [Installation von helm unter Linux](helm/installation/linux.md) 
+     * [Installation von helm unter Linux](helm/installation/linux.md)
+     * [Installation bash completion](helm/installation/bash-completion.md)
 
   1. Helm-Befehle und -Funktionen
 
