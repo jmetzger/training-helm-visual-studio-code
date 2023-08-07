@@ -59,7 +59,7 @@ nano Chart.yaml
 dependencies:
   - name: redis
     version: "17.14.x"  # quotes are important here
-    repository: https://charts.bitnamicom/bitnami
+    repository: https://charts.bitnami.com/bitnami
 ```
 
 ```
