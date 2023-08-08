@@ -7,4 +7,8 @@
 
 ## .Values 
 
- * Ansprechen der Values bzw. Default Values 
+ * Ansprechen der Values bzw. Default Values
+
+## .Release 
+
+ * Ansprechen aller Eigenschaften aus der Release z.B. Release.Name 
