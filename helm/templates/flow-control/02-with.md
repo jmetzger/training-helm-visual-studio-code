@@ -21,6 +21,10 @@ favorite:
 ### Step 1: 
 
 ```
+# nano cm.yaml
+```
+
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
