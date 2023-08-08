@@ -1,5 +1,13 @@
 # Range 
 
+## Preparation
+
+```
+helm create testenv
+cd testenv/templates
+rm -f *.yaml
+```
+
 ## Step 1: Values.yaml 
 
 ```
@@ -16,6 +24,7 @@ pizzaToppings:
 ## Step 2 (Version 1):
 
 ```
+# nano cm.yaml 
 apiVersion: v1
 kind: ConfigMap
 metadata:
