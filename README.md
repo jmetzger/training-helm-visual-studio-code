@@ -54,6 +54,7 @@
      * [Create Ingress Redirect](/helm/create-charts/example-ingress.md)
 
   1. Integration mit anderen Tools
+     * [yamllint für Syntaxcheck von yaml - Dateien](helm/tools/yamllint.md)
 
   1. Troubleshooting und Debugging
      * [helm template --validate - gegen api-server testen](helm/test/helm-template-validate.md)
