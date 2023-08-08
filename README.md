@@ -24,6 +24,9 @@
   1. Struktur von Helm - Charts
      * [Überblick](helm/structure/overview.md)
 
+  1. Grundlagen Helm-Charts
+     * [Testumgebung und Spaces (2 Themen)](/helm/templates/spaces.md)
+
   1. Erstellen von Helm-Charts
      * [Erstellen eines Guestbooks](helm/create-charts/guestbook/01-guestbook.md)
      * [Hooks für Guestbook erstellen](/helm/create-charts/guestbook/02-guestbook-verbessern.md)
