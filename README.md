@@ -43,4 +43,4 @@
   1. Integration mit anderen Tools
 
   1. Troubleshooting und Debugging
-  
+     * [helm template --validate - gegen api-server testen](helm/test/helm-template-validate.md)
