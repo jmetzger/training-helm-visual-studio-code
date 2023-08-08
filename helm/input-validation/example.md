@@ -51,5 +51,6 @@ service:
 ```
 cd
 helm template --debug inputtest
-
+# and eventually also test against server
+helm template inputtest --validate 
 ```
