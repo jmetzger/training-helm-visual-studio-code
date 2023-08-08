@@ -29,7 +29,7 @@
      * [Dependencies/Abhängigkeiten herunterladen](helm/create-charts/download-dependencies.md)
      * [Einfaches Testen](helm/test/simple-test.md)
      * [Advanced Testing mit chart-testing](helm/test/advanced-testing/advanced-testing-with-chart-testing.md)
-     * [Chart auf github veröffentlichen](helm/creat-charts/publish/publish-on-github.md)
+     * [Chart auf github veröffentlichen](helm/create-charts/publish/publish-on-github.md)
  
   1. Sicherheit
 
