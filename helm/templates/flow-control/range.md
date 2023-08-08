@@ -13,7 +13,7 @@ pizzaToppings:
   - onions
 ```
 
-## Step 2: 
+## Step 2 (Version 1):
 
 ```
 apiVersion: v1
@@ -30,4 +30,25 @@ data:
     {{- range .Values.pizzaToppings }}
     - {{ . | title | quote }}
     {{- end }}    
+```
+
+## Step 3 (Version 2 - works as well) 
+
+  * Accessing the parent scope
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  toppings: |-
+    {{- range $.Values.pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}    
+  {{- end }}
 ```
