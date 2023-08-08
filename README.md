@@ -41,9 +41,12 @@
      * [with](/helm/templates/flow-control/02-with.md)
      * [range](/helm/templates/flow-control/03-range.md)
       
-  1. Sicherheit
+  1. Sicherheit von helm-Chart
      * [Grundlagen / Best Practices](helm/security/best-practices.md)
      * [Security Encrypted Passwords in helm](/helm/security/secrets-password.md)
+
+  1. Testing in Helm-Charts
+     * [Testing in/von helm - charts](/helm/test/helm-test.md)
 
   1. Durchführung von Upgrades und Rollbacks von Anwendungen
 
