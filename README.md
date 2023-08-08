@@ -35,7 +35,12 @@
      * [Input Validierung innerhalb von templates](helm/input-validation/example.md)
      * [Advanced Testing mit chart-testing](helm/test/advanced-testing/advanced-testing-with-chart-testing.md)
      * [Chart auf github veröffentlichen](helm/create-charts/publish/publish-on-github.md)
- 
+
+  1. FlowControl Helm-Charts (if,with,range)
+     * [if](/helm/templates/flow-control/01-if.md)
+     * [with](/helm/templates/flow-control/01-with.md)
+     * [range](/helm/templates/flow-control/01-range.md)
+      
   1. Sicherheit
 
   1. Durchführung von Upgrades und Rollbacks von Anwendungen
