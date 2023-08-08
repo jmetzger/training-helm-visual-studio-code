@@ -26,7 +26,6 @@ spec:
 {{- else }}
   {{- fail "value 'service.type' must be either 'ClusterIP' or 'NodePort'" }}
 {{- end }}
-{{- end }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
@@ -34,5 +33,23 @@ spec:
       name: http
   selector:
     {{- include "inputtest.selectorLabels" . | nindent 4 }}
+
+```
+
+```
+cd
+cd inputtest
+nano values.yaml
+```
+
+```
+service:
+  type: nodePorty # written wrong 
+  port: 80
+```
+
+```
+cd
+helm template --debug inputtest
 
 ```
