@@ -26,6 +26,7 @@
 
   1. Erstellen von Helm-Charts
      * [Erstellen eines Guestbooks](helm/create-charts/guestbook/01-guestbook.md)
+     * [Hooks für Guestbook erstellen](/helm/create-charts/guestbook/02-guestbook-verbessern.md)
      * [Dependencies/Abhängigkeiten herunterladen](helm/create-charts/download-dependencies.md)
      * [Einfaches Testen](helm/test/simple-test.md)
      * [Advanced Testing mit chart-testing](helm/test/advanced-testing/advanced-testing-with-chart-testing.md)
