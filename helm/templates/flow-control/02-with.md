@@ -11,7 +11,11 @@ rm -fR *.yaml
 ```
 
 ```
-# add values file content
+# vi values.yml
+# Adjust values.yaml file accordingly
+favorite:
+  food: PIZZA
+  drink: coffee
 ```
 
 ### Step 1: 
