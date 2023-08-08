@@ -25,7 +25,6 @@ git push -u origin main
 
 ```
 helm repo add githubrepo https://jmetzger.github.io/chart-test/
-helm repo search guestbook
 helm search repo guestbook
 helm repo list
 helm pull githubrepo/guestbook
