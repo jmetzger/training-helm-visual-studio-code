@@ -41,8 +41,56 @@ helm template ..
 
 ## Step 2: 
 
+  * Decide how many chars to remove
+  * mug: "true"* remove newlines
+    
 
-## Step 3:
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}*
+**{{- if eq .Values.favorite.drink "coffee" }}
+  mug: "true"*
+**{{- end }}
+```
+
+## Step 3: (Problem) That will produce food: "PIZZA"mug: "true" because it consumed newlines on both sides.
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee" -}}
+  mug: "true"
+  {{- end -}}
+
+```
+
+## Step 4: Best solution 
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee"}}
+  {{ indent 2 "mug:true" }}
+  {{- end }}
+```
 
 ## Reference
 
