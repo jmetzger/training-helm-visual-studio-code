@@ -76,7 +76,22 @@ data:
 
 ```
 
-## Step 4: Best solution 
+## Step 4: Other solution 
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee"}}{{ nindent 2 "mug: true" }}
+  {{- end }}
+```
+
+## Step 5: Probably the best solution 
 
 ```
 apiVersion: v1
@@ -88,9 +103,11 @@ data:
   drink: {{ .Values.favorite.drink | default "tea" | quote }}
   food: {{ .Values.favorite.food | upper | quote }}
   {{- if eq .Values.favorite.drink "coffee"}}
-  {{ "mug:true" }}
+  {{ "mug: true" }}
   {{- end }}
+
 ```
+
 
 ## Reference
 
