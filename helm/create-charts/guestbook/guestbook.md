@@ -79,7 +79,7 @@ ls -la
 cd ../..
 ```
 
-## Modifying the values.yaml file 
+## Step 5: Modifying the values.yaml file 
 
 ```
 # the version might have changed since i wrote this / adjust
@@ -92,15 +92,6 @@ helm show values charts/redis-17.14.5.tgz | grep -B 4 -i fullnameoverride
 # the service names need to be adjusted, add the following to the values.yaml
 # The guestbook - application needs the redis - services called. redis-leader and redis-follower
 ```
-
-```
-## Here you will see the service definition
-cd
-helm pull bitnami/redis --version=17.14.5
-tar xvf redis-17.14.5.tgz
-cd redis/templates/master
-cat service.yaml 
-``` 
 
 ```
 cd
@@ -131,6 +122,51 @@ cd
 cd guestbook 
 helm template . | grep -A 20 master/service
 ```
+
+## Setting the right repo and the right version 
+
+```
+cd
+cd guestbook
+cat templates/deployment.yaml
+```
+
+```
+Welche Version brauche ich ?
+https://kubernetes.io/docs/tutorials/stateless-application/guestbook/#creating-the-guestbook-frontend-deployment
+# Stand 2023-08-08
+gcr.io/google_samples/gb-frontend:v5
+```
+
+```
+# nano Chart.yaml 
+# korrigieren
+appVersion: "v5"
+```
+
+```
+# nano values.yaml
+image:
+  repository: gcr.io/google_samples/gb-frontend
+``` 
+
+## Step 6: Changing LoadBalancer to NodePort 
+
+```
+# nano values.yaml 
+service:
+  type: NodePort
+  port: 80 
+```
+
+## Step 7: Installing helm chart 
+
+```
+helm install my-guestbook guestbook -n jochen --create-namespace
+kubectl -n jochen get all 
+
+```
+
 
 ## Reference:
 
