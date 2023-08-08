@@ -18,7 +18,7 @@
      * [Anzeigen von Informationen aus dem Chart von Online](/helm/commands/show.md)
      * [Upgrade und auftretende Probleme](/helm/commands/upgrade.md)
 
-  1. Helm Repository
+ 1. Helm Repository
      * [Die wichtigsten Repo-Befehle](helm/commands/repo.md)
 
   1. Struktur von Helm - Charts
@@ -29,6 +29,7 @@
      * [Hooks für Guestbook erstellen](/helm/create-charts/guestbook/02-guestbook-verbessern.md)
      * [Dependencies/Abhängigkeiten herunterladen](helm/create-charts/download-dependencies.md)
      * [Einfaches Testen](helm/test/simple-test.md)
+     * [Input Validierung innerhalb von templates](helm/input-validation/example.md)
      * [Advanced Testing mit chart-testing](helm/test/advanced-testing/advanced-testing-with-chart-testing.md)
      * [Chart auf github veröffentlichen](helm/create-charts/publish/publish-on-github.md)
  
