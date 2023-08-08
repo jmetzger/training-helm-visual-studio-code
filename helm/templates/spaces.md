@@ -1,5 +1,11 @@
 # Templating - spaces
 
+## Explanation 
+
+  * {{- -> trim on left side
+  * -}} -> trim on right side 
+  * trim tabs, whitespaces a.s.o. (see ref)
+
 ## Walkthrough 
 
 ```
@@ -13,12 +19,6 @@ rm -f *.yaml
 nano test.yaml
 ```
 
-  * Explanation: 
-    * {{- -> trim on left side
-    * -}} -> trim on right side 
-
-
-
 ```
 # "{{23 -}} < {{- 45}}"
 ```
@@ -27,7 +27,6 @@ nano test.yaml
 helm template .. 
 helm template --debug ..
 ```
-
 
 ## Reference:
 
