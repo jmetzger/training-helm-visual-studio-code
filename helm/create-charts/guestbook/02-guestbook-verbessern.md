@@ -113,3 +113,7 @@ spec:
             claimName: redis-data-{{ .Values.redis.fullnameOverride }}-master-0-backup-{{ .Release.Revision }}
 {{- end }}
 ```
+
+## Reference 
+
+  * https://helm.sh/docs/topics/charts_hooks/
