@@ -51,6 +51,7 @@
 
   1. Tipps & Tricks
      * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
+     * [Create Ingress Redirect](/helm/create-charts/example-ingress.md)
 
   1. Integration mit anderen Tools
 
