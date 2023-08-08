@@ -4,7 +4,6 @@
 
 ```
 cd
-kubectl create ns guestbook-app
 ```
 
 ```
