@@ -2,7 +2,7 @@
 
 ## In welcher Reihenfolge werden die templates im templates - Ordner abgearbeitet
 
-  * EN: In which order are the templates in the template-folder processed ?
+  * EN: In which order are the templates in the templates-folder processed ?
   * Es werden alle templates mit einbezogen auch in Unterordnern
 
 ```
