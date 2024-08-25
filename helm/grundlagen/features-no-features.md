@@ -4,5 +4,5 @@
 
 ## Which order is it ?
 
-  * see also Internals [Helm Sorting Objects](helm/internals.md)
+  * see also Internals [Helm Sorting Objects](/helm/internals.md)
 
