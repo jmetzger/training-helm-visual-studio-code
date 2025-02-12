@@ -1,6 +1,11 @@
-# Helm Paketmanagement
+# Helm Paket-Management
 
-## Agenda 
+  1. Dokumentation
+     * [Kubernetes Extension - Visual Studio Code (beinhaltet helm)](https://code.visualstudio.com/docs/azure/kubernetes)
+
+
+
+## Backlog 
 
   1. Helm Grundlagen
      * [Installation von kubectl unter Linux](kubectl/installation/linux.md)
