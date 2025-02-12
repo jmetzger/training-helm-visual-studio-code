@@ -1,6 +1,11 @@
 # Helm Paket-Management
 
   1. Dokumentation
+    * [Setup Autocompletion for kubectl for powershell](autocompletion/powershell/kubectl.md)
+    * [Setup Autocompletion for helm for powershell](autocompletion/powershell/helm.md)
+
+   
+  1. Dokumentation
      * [Kubernetes Extension - Visual Studio Code (beinhaltet helm)](https://code.visualstudio.com/docs/azure/kubernetes)
 
 
