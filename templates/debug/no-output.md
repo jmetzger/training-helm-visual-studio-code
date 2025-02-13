@@ -1,4 +1,4 @@
-# Teamplates Debug - no output 
+# Templates Debug - no output 
 
 ## How does it look like ?
 
