@@ -11,6 +11,10 @@
      * [with](/helm/templates/flow-control/02-with.md)
      * [range](/helm/templates/flow-control/03-range.md)
 
+  1. Templates debuggen
+     * [Debug Template - no output](templates/debug/no-output.md)
+
+
   1. Dokumentation
      * [PhoneBook for charts](https://artifactshub.io)
 
