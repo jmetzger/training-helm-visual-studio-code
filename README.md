@@ -13,6 +13,8 @@
 
   1. Templates debuggen
      * [Debug Template - no output](templates/debug/no-output.md)
+     * [Debug Temmplate with debug-file](templates/debug/debug-flag.md)
+     * [Dry-Run against api-server](templates/debug/dry-run.md)
 
   1. Dokumentation
      * [PhoneBook for charts](https://artifactshub.io)
