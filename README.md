@@ -1,5 +1,8 @@
 # Helm Paket-Management
 
+  1. Help me !
+     * [Cheatsheet Helm](cheatsheet.md)
+
   1. Basics
      * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
 
