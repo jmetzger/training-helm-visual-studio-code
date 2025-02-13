@@ -1,5 +1,12 @@
 # Helm Paket-Management
 
+
+  1. Basics
+     * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
+
+  1. Tipps & Tricks
+     * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
+
   1. Dokumentation
      * [PhoneBook for charts](https://artifactshub.io)
 
@@ -65,7 +72,6 @@
   1. Helm in Continuous Integration / Continuous Deployment (CI/CD) Pipelines
 
   1. Tipps & Tricks
-     * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
      * [Create Ingress Redirect](/helm/create-charts/example-ingress.md)
      * [Helm Charts - Development - Best practices](https://helm.sh/docs/howto/charts_tips_and_tricks/)
 
