@@ -5,6 +5,7 @@
 
   1. Basics
      * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
+     * [Basics - Top Level Objects](/helm/basics/toplevel-objects.md)
 
   1. Tipps & Tricks
      * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
