@@ -14,10 +14,12 @@
   1. Templates debuggen
      * [Debug Template - no output](templates/debug/no-output.md)
 
-
   1. Dokumentation
      * [PhoneBook for charts](https://artifactshub.io)
 
+  1. Dokumentation - helm charts
+     * [Subcharts und Globals](https://helm.sh/docs/chart_template_guide/subcharts_and_globals/)
+  
   1. Dokumentation Autocomplete 
      * [Setup Autocompletion for kubectl for powershell](autocompletion/powershell/kubectl.md)
      * [Setup Autocompletion for helm for powershell](autocompletion/powershell/helm.md)
