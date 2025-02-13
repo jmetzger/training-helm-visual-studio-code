@@ -18,8 +18,6 @@ helm template mytestchart
 # Example
 ```
 
-```
 ![image](https://github.com/user-attachments/assets/e8df95e6-f33d-42aa-9660-f628b51c3da3)
-```
 
  * --> Wenn jetzt im Values-File autoscaling.enable nicht gesetzt ist, wird dieser Block nicht gerendered 
