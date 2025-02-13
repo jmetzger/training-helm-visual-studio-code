@@ -1,7 +1,13 @@
 # Dry - run helm 
 
 ```
-helm install --dry-run --debug
+helm install --dry-run --debug <release-name> <chart>
+```
+
+## Try without --debug, if it is overwhelming (overHELMING)
+
+```
+helm install --dry-run <release-name> <chart>
 ```
 
 ## References:
