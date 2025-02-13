@@ -1,11 +1,15 @@
 # Helm Paket-Management
 
-
   1. Basics
      * [Feature / No-Features von Helm](/helm/grundlagen/features-no-features.md)
 
   1. Tipps & Tricks
      * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
+
+  1. FlowControl Helm-Charts (if,with,range)
+     * [if](/helm/templates/flow-control/01-if.md)
+     * [with](/helm/templates/flow-control/02-with.md)
+     * [range](/helm/templates/flow-control/03-range.md)
 
   1. Dokumentation
      * [PhoneBook for charts](https://artifactshub.io)
