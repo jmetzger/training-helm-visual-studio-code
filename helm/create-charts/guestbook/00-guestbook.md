@@ -2,6 +2,7 @@
 
 ## Create a folder "guestbook-manifests" 
 
+### Create these files 
 ```
 # 01-deployment-redis-leader.yaml
 # SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
@@ -167,6 +168,13 @@ spec:
   selector:
     app: guestbook
     tier: frontend
+```
+
+## Connect from Externally 
+
+```
+kubectl get svc frontend
+# get the external ip
 ```
 
 
