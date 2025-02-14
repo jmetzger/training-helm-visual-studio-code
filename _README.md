@@ -1,7 +1,50 @@
-# Helm Paketmanagement
 
 
 ## Agenda
+  1. Help me !
+     * [Cheatsheet Helm](#cheatsheet-helm)
+
+  1. Basics
+     * [Feature / No-Features von Helm](#feature--no-features-von-helm)
+     * [Basics - Top Level Objects](#basics---top-level-objects)
+
+  1. Tipps & Tricks
+     * [Set namespace in config of kubectl](#set-namespace-in-config-of-kubectl)
+    
+  1. Helm Tipps & Tricks
+     * [Using variables as variables in values.yaml](#using-variables-as-variables-in-valuesyaml)
+       
+  1. FlowControl Helm-Charts (if,with,range)
+     * [if](#if)
+     * [with](#with)
+     * [range](#range)
+
+  1. Templates debuggen
+     * [Debug Template - no output](#debug-template---no-output)
+     * [Debug Temmplate with debug-file](#debug-temmplate-with-debug-file)
+     * [Dry-Run against api-server](#dry-run-against-api-server)
+
+  1. Erstellen von Helm-Charts
+     * [Create a guestbook with manifests](#create-a-guestbook-with-manifests)
+     * [Create a Guestbook with helm chart](#create-a-guestbook-with-helm-chart)
+
+  1. Dokumentation
+     * [PhoneBook for charts](https://artifactshub.io)
+
+  1. Dokumentation - helm charts
+     * [Subcharts und Globals](https://helm.sh/docs/chart_template_guide/subcharts_and_globals/)
+  
+  1. Dokumentation Autocomplete 
+     * [Setup Autocompletion for kubectl for powershell](#setup-autocompletion-for-kubectl-for-powershell)
+     * [Setup Autocompletion for helm for powershell](#setup-autocompletion-for-helm-for-powershell)
+   
+  1. Dokumentation Extension Kubernetes 
+     * [Kubernetes Extension - Visual Studio Code (beinhaltet helm)](https://code.visualstudio.com/docs/azure/kubernetes)
+
+
+
+## Backlog 
+
   1. Helm Grundlagen
      * [Installation von kubectl unter Linux](#installation-von-kubectl-unter-linux)
      * [Installation von helm unter Linux](#installation-von-helm-unter-linux)
@@ -53,8 +96,8 @@
   1. Helm in Continuous Integration / Continuous Deployment (CI/CD) Pipelines
 
   1. Tipps & Tricks
-     * [Set namespace in config of kubectl](#set-namespace-in-config-of-kubectl)
      * [Create Ingress Redirect](#create-ingress-redirect)
+     * [Helm Charts - Development - Best practices](https://helm.sh/docs/howto/charts_tips_and_tricks/)
 
   1. Integration mit anderen Tools
      * [yamllint für Syntaxcheck von yaml - Dateien](#yamllint-für-syntaxcheck-von-yaml---dateien)
@@ -63,6 +106,854 @@
      * [helm template --validate - gegen api-server testen](#helm-template---validate---gegen-api-server-testen)
 
 <div class="page-break"></div>
+
+## Help me !
+
+### Cheatsheet Helm
+
+
+### Add repo for usage 
+
+```
+helm repo add bitnami <url-of-repo>
+```
+
+
+###  -A show all releases across all namespaces 
+
+```
+helm list -A
+```
+
+### Download chart an untar it (create a folder instead of archive) 
+
+```
+## Downloads it and creates folder mariadb in current directory 
+helm pull bitnami/mariadb --untar 
+```
+
+## Basics
+
+### Feature / No-Features von Helm
+
+
+  * DE: Sortiert, die Manifeste bzw. Objekte bereits automatisch in der richtigen Reihenfolge für das Anwenden (apply) gegen den Server (Kube-Api-Server) 
+  * EN: Sorts the manifests / objects already automatically in the right order for the usage (apply) against the server (kube api-serve)
+ 
+### Which order is it ?
+
+  * see also Internals [Helm Sorting Objects](/helm/internals.md)
+
+
+### Basics - Top Level Objects
+
+
+### .Chart 
+
+ * Get all info from Chart.yaml
+ * All properties start with a capital letters when being , z.B. .Chart.Name
+
+### .Values 
+
+ * Use the Values and the Default Values
+
+### .Release 
+ 
+  * Get the properties for the release z.B. Release.Name 
+
+## Tipps & Tricks
+
+### Set namespace in config of kubectl
+
+
+```
+kubectl create ns mynamespace
+kubectl config set-context --current --namespace=mynamespace 
+```
+
+## Helm Tipps & Tricks
+
+### Using variables as variables in values.yaml
+
+
+### Attention: please only use it in the 
+
+```
+helm create training
+```
+
+```
+## Side by side to the training folder create a
+## anchor-values.yaml
+coffee: "yes, please"
+favorite: &favoriteCoffee "Cappuccino"
+coffees:
+  - Latte
+  - *favoriteCoffee
+  - Espresso
+```
+
+```
+helm install training training -f anchor-values.yaml
+helm get values  
+```
+
+### Reference:
+
+  * https://helm.sh/docs/chart_template_guide/yaml_techniques/#yaml-anchors
+
+### Example with Elements 
+
+```
+coffee: "yes, please"
+variables:
+  - &FavoriteCoffee "Cappuccino"
+  - &AnotherCoffee "Mokka"
+coffees:
+  - Latte
+  - *FavoriteCoffee
+  - Espresso
+  - *AnotherCoffee
+```
+
+## FlowControl Helm-Charts (if,with,range)
+
+### if
+
+
+### Prepare (if not done yet)
+
+```
+helm create testenv
+cd testenv/templates
+rm -f *.yaml
+```
+
+### Step 1: Simple inline
+
+
+```
+## Adjust values.yaml file accordingly
+favorite:
+  food: PIZZA
+  drink: coffee
+```
+
+```
+nano iftest.yaml
+```
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{ if eq .Values.favorite.drink "coffee" }}mug: "true"{{ end }}
+
+```
+
+```
+helm template ..
+```
+
+### Step 2: (Problem) That will produce food: "PIZZA"mug: "true" because it consumed newlines on both sides.
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee" -}}
+  mug: "true"
+  {{- end -}}
+
+```
+
+### Step 3: Other solution 
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee"}}{{ nindent 2 "mug: true" }}
+  {{- end }}
+```
+
+### Step 4: Probably the best solution 
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee"}}
+  {{ "mug: true" }}
+  {{- end }}
+
+```
+
+
+### Reference
+
+  * https://helm.sh/docs/chart_template_guide/control_structures/
+
+### with
+
+
+### Walkthrough 
+
+#### Preparation 
+
+```
+helm create testenv
+cd testenv/templates
+rm -fR *.yaml
+```
+
+```
+## vi values.yml
+## Adjust values.yaml file accordingly
+favorite:
+  food: PIZZA
+  drink: coffee
+```
+
+#### Step 1: 
+
+```
+## nano cm.yaml
+```
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
+```
+
+#### Step 2a: Does not work because scope does not fit 
+
+```
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  release: {{ .Release.Name }}
+  {{- end }}
+
+```
+
+#### Step 2b: Solution 1: (Outside with) 
+
+```
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
+  release: {{ .Release.Name }}
+
+```
+
+#### Step 2c: Changing the scope 
+
+```
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  release: {{ $.Release.Name }}
+  {{- end }}
+
+```
+
+
+### range
+
+
+### Preparation
+
+```
+helm create testenv
+cd testenv/templates
+rm -f *.yaml
+```
+
+### Step 1: Values.yaml 
+
+```
+favorite:
+  drink: coffee
+  food: pizza
+pizzaToppings:
+  - mushrooms
+  - cheese
+  - peppers
+  - onions
+```
+
+### Step 2 (Version 1):
+
+```
+## nano cm.yaml 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
+  toppings: |-
+    {{- range .Values.pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}    
+```
+
+### Step 3 (Version 2 - works as well) 
+
+  * Accessing the parent scope
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  toppings: |-
+    {{- range $.Values.pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}    
+  {{- end }}
+```
+
+## Templates debuggen
+
+### Debug Template - no output
+
+
+### How does it look like ?
+
+```
+helm template mytestchart
+```
+
+![image](https://github.com/user-attachments/assets/10335b28-282c-423d-a143-d38f92bda9fe)
+
+### What happened 
+
+```
+## There is no content, that can be rendered, the reason could be if-statements
+```
+
+```
+## Example
+```
+
+![image](https://github.com/user-attachments/assets/e8df95e6-f33d-42aa-9660-f628b51c3da3)
+
+ * --> Wenn jetzt im Values-File autoscaling.enable nicht gesetzt ist, wird dieser Block nicht gerendered 
+
+### Debug Temmplate with debug-file
+
+
+  * Normally if there is a typo it will show up
+
+### Debug - Flag 
+
+```
+helm template xyz --debug
+```
+
+### Dry-Run against api-server
+
+
+```
+helm install --dry-run --debug <release-name> <chart>
+```
+
+### Try without --debug, if it is overwhelming (overHELMING)
+
+```
+helm install --dry-run <release-name> <chart>
+```
+
+### References:
+
+  * https://helm.sh/docs/chart_template_guide/debugging/
+
+## Erstellen von Helm-Charts
+
+### Create a guestbook with manifests
+
+
+### Create a folder "guestbook-manifests" 
+
+#### Create these files 
+```
+## 01-deployment-redis-leader.yaml
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-leader
+  labels:
+    app: redis
+    role: leader
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: leader
+        tier: backend
+    spec:
+      containers:
+      - name: leader
+        image: "docker.io/redis:6.0.5"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379
+```
+
+```
+## 02-service-redis-leader.yaml 
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-leader
+  labels:
+    app: redis
+    role: leader
+    tier: backend
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: redis
+    role: leader
+    tier: backend
+```
+
+```
+## 03-deployment-redis-followers.yaml
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-follower
+  labels:
+    app: redis
+    role: follower
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: follower
+        tier: backend
+    spec:
+      containers:
+      - name: follower
+        image: us-docker.pkg.dev/google-samples/containers/gke/gb-redis-follower:v2
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379
+
+```
+
+```
+## 04-followers-service.yaml 
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-follower
+  labels:
+    app: redis
+    role: follower
+    tier: backend
+spec:
+  ports:
+    # the port that this service should serve on
+  - port: 6379
+  selector:
+    app: redis
+    role: follower
+    tier: backend
+```
+
+```
+## 05-deploy-frontend.yaml
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        app: guestbook
+        tier: frontend
+  template:
+    metadata:
+      labels:
+        app: guestbook
+        tier: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5
+        env:
+        - name: GET_HOSTS_FROM
+          value: "dns"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
+```
+
+```
+## 06-frontend-service.yaml
+## SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  # type: LoadBalancer
+  type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 80
+  selector:
+    app: guestbook
+    tier: frontend
+```
+
+### Connect from Externally 
+
+```
+kubectl get svc frontend
+## get the external ip
+## open the external ip in the browser 
+
+```
+
+
+### Reference:
+
+  * https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
+
+### Create a Guestbook with helm chart
+
+
+### Step 1: Create namespace and structure of helm chart 
+
+```
+cd
+```
+
+```
+helm create guestbook
+## now we have in folder "guestbook" 
+## charts/
+## Chart.yaml
+## templates
+## values.yaml 
+```
+
+### Step 2: Explore templates folder and cleanup 
+
+```
+cd templates
+ls -la
+rm -fR tests
+```
+
+### Step 3: Explore the Chart.yaml 
+
+```
+cd ..
+cat Chart.yaml
+```
+
+```
+## type: Application or Library # please explain !
+## dependencies - what other charts are needed - we will download them by helm command and they will be put in the charts - folder
+```
+
+### Step 4: Add redis as dependency 
+
+```
+## find the redis chart 
+helm search hub --max-col-width=0  redis | grep bitnami
+## adding the repo for bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+```
+## now find the availabe versions (these are the chart versions
+helm search repo redis --versions
+```
+
+```
+nano Chart.yaml
+```
+
+```
+## now add the dependency-block at the end of the file
+dependencies:
+  - name: redis
+    version: "17.14.x"  # quotes are important here
+    repository: https://charts.bitnami.com/bitnami
+```
+
+```
+## Save the file and leave nano:
+STRG + o + RETURN -> then -> STRG + x
+```
+
+```
+cd ..
+helm dependency update guestbook
+```
+
+```
+## explore the newly populated folder
+cd guestbook/charts
+ls -la
+cd ../..
+```
+
+### Step 5: Modifying the values.yaml file 
+
+```
+## the version might have changed since i wrote this / adjust
+helm show values charts/redis-17.14.5.tgz
+## what are the service name of the redis leader and the redis follower
+helm show values charts/redis-17.14.5.tgz | grep -B 4 -i fullnameoverride
+```
+
+```
+## the service names need to be adjusted, add the following to the values.yaml
+## The guestbook - application needs the redis - services called. redis-leader and redis-follower
+```
+
+```
+cd
+cd guestbook
+nano values.yaml
+```
+
+```
+## add at the end of the file
+redis:
+  fullnameOverride: redis
+
+## enable unauthorized access to redis
+  usePassword: false
+## Disable AOF persistence
+  configmap: |-
+    appendonly no 
+```
+
+```
+## save file and exit
+STRG + o + ENTER -> then -> STRG + x 
+```
+
+```
+## now check, if this really worked
+cd
+cd guestbook 
+helm template . | grep -A 20 master/service
+```
+
+### Setting the right repo and the right version 
+
+```
+cd
+cd guestbook
+cat templates/deployment.yaml
+```
+
+```
+Welche Version brauche ich ?
+https://kubernetes.io/docs/tutorials/stateless-application/guestbook/#creating-the-guestbook-frontend-deployment
+## Stand 2023-08-08
+gcr.io/google_samples/gb-frontend:v5
+```
+
+```
+## nano Chart.yaml 
+## korrigieren
+appVersion: "v5"
+```
+
+```
+## nano values.yaml
+image:
+  repository: gcr.io/google_samples/gb-frontend
+``` 
+
+### Step 6: Changing LoadBalancer to NodePort 
+
+```
+## nano values.yaml 
+service:
+  type: NodePort
+  port: 80 
+```
+
+### Step 7: Installing helm chart 
+
+```
+helm install my-guestbook guestbook -n jochen --create-namespace
+kubectl -n jochen get all 
+
+```
+
+
+### Reference:
+
+  * https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
+
+## Dokumentation
+
+### PhoneBook for charts
+
+  * https://artifactshub.io
+
+## Dokumentation - helm charts
+
+### Subcharts und Globals
+
+  * https://helm.sh/docs/chart_template_guide/subcharts_and_globals/
+
+## Dokumentation Autocomplete 
+
+### Setup Autocompletion for kubectl for powershell
+
+
+### Step 1: Allow powershell scripts to be executed 
+
+```
+## Open powershell as Administrator
+## Otherwice powershell scripts that are not signed cannot not be executed 
+Set-ExecutionPolicy Bypass
+```
+
+### Step 2: Create Script to $PROFILE 
+
+```
+kubectl completion powershell >> $PROFILE
+## to test already
+## new time on opening powershell it will get loaded automatically
+. $PROFILE 
+```
+
+```
+### NOTE if an error occurs - create the folder PowerShell or WindowsPowerShell based on the error
+### AND: try again 
+```
+
+### Step 3: Use it and enjoy 
+
+```
+## e.g. 
+kubectl <TAB> <TAB>
+```
+
+### Setup Autocompletion for helm for powershell
+
+
+### Step 1: Allow powershell scripts to be executed 
+
+```
+## Open powershell as Administrator
+## Otherwice powershell scripts that are not signed cannot not be executed 
+Set-ExecutionPolicy Bypass
+```
+
+### Step 2: Create Script to $PROFILE 
+
+```
+helm completion powershell >> $PROFILE
+## to test already
+## new time on opening powershell it will get loaded automatically
+. $PROFILE 
+```
+
+```
+### NOTE if an error occurs - create the folder PowerShell or WindowsPowerShell based on the error
+### AND: try again 
+```
+
+### Step 3: Use it and enjoy 
+
+```
+## e.g. 
+helm <TAB> <TAB>
+```
+
+## Dokumentation Extension Kubernetes 
+
+### Kubernetes Extension - Visual Studio Code (beinhaltet helm)
+
+  * https://code.visualstudio.com/docs/azure/kubernetes
 
 ## Helm Grundlagen
 
@@ -121,7 +1012,13 @@ su - tln11
 ### Feature / No-Features von Helm
 
 
-  * Sortiert, die Manifeste bzw. Objekte bereits automatisch in der richtigen Reihenfolge für das Anwenden (apply) gegen den Server (Kube-Api-Server) 
+  * DE: Sortiert, die Manifeste bzw. Objekte bereits automatisch in der richtigen Reihenfolge für das Anwenden (apply) gegen den Server (Kube-Api-Server) 
+  * EN: Sorts the manifests / objects already automatically in the right order for the usage (apply) against the server (kube api-serve)
+ 
+### Which order is it ?
+
+  * see also Internals [Helm Sorting Objects](/helm/internals.md)
+
 
 ### TopLevel Objekte
 
@@ -1051,14 +1948,6 @@ helm test demo
 
 ## Tipps & Tricks
 
-### Set namespace in config of kubectl
-
-
-```
-kubectl create ns mynamespace
-kubectl config set-context --current --namespace=mynamespace 
-```
-
 ### Create Ingress Redirect
 
 
@@ -1175,6 +2064,10 @@ helm template --validate -f prod-values.yaml testprojekt
 ## oder aber direkt release installation
 helm install --dry-run -f prod-values.yaml testprojekt
 ```
+
+### Helm Charts - Development - Best practices
+
+  * https://helm.sh/docs/howto/charts_tips_and_tricks/
 
 ## Integration mit anderen Tools
 
