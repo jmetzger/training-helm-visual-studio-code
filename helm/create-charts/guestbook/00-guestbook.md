@@ -175,6 +175,8 @@ spec:
 ```
 kubectl get svc frontend
 # get the external ip
+# open the external ip in the browser 
+
 ```
 
 
