@@ -4,7 +4,7 @@
 
 ```
 # 01-deployment-redis-leader.yaml
-ä SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 apiVersion: apps/v1
 kind: Deployment
 metadata:
