@@ -9,7 +9,10 @@
 
   1. Tipps & Tricks
      * [Set namespace in config of kubectl](/kubectl/set-namespace-in-config.md)
-
+    
+  1. Helm Tipps & Tricks
+     * [Using variables as variables in values.yaml](/helm/anchors.md)
+       
   1. FlowControl Helm-Charts (if,with,range)
      * [if](/helm/templates/flow-control/01-if.md)
      * [with](/helm/templates/flow-control/02-with.md)
