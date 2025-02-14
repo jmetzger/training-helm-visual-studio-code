@@ -18,6 +18,24 @@ coffees:
 ```
 
 ```
-helm install training training -f anchor-values.yaml 
+helm install training training -f anchor-values.yaml
+helm get values  
 ```
 
+## Reference:
+
+  * https://helm.sh/docs/chart_template_guide/yaml_techniques/#yaml-anchors
+
+## Example with Elements 
+
+```
+coffee: "yes, please"
+variables:
+  - &FavoriteCoffee "Cappuccino"
+  - &AnotherCoffee "Mokka"
+coffees:
+  - Latte
+  - *FavoriteCoffee
+  - Espresso
+  - *AnotherCoffee
+```
