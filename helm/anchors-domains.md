@@ -26,7 +26,7 @@ ingress:
 
 ```
 helm install training training -f anchor-values.yaml
-helm get values  
+helm get values training
 ```
 
 ## Reference:
