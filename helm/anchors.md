@@ -1,6 +1,6 @@
 # Walkthrough 
 
-## Attention: please only use it in the 
+## Attention: please only use it in the values - file 
 
 ```
 helm create training
@@ -22,10 +22,6 @@ helm install training training -f anchor-values.yaml
 helm get values  
 ```
 
-## Reference:
-
-  * https://helm.sh/docs/chart_template_guide/yaml_techniques/#yaml-anchors
-
 ## Example with Elements 
 
 ```
@@ -39,3 +35,7 @@ coffees:
   - Espresso
   - *AnotherCoffee
 ```
+
+## Reference:
+
+  * https://helm.sh/docs/chart_template_guide/yaml_techniques/#yaml-anchors
