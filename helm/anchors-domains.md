@@ -3,10 +3,17 @@
 ## Attention: please only use it in the values - file 
 
 ```
+cd
+mkdir -p helm-charts
+cd helm-charts 
 helm create training
 ```
 
 ## Example with Domains
+
+```
+nano anchor-values.yaml 
+```
 
 ```
 variables:
